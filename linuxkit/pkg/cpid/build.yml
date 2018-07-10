@@ -1,0 +1,3 @@
+image: bosh-linuxkit-cpid
+org: aemengo
+disable-content-trust: true

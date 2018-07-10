@@ -1,0 +1,7 @@
+---
+stemcell_dir: "/var/vcap/store/cpid/stemcells"
+disk_dir: "/var/vcap/store/cpid/disks"
+vm_dir: "/var/vcap/store/cpid/vms"
+
+network_type: "unix"
+address: "/var/run/cpid/cpid.sock"

@@ -1,0 +1,12 @@
+.DS_Store
+.dev_builds
+.final_builds
+.idea
+*.tgz
+
+dev_releases
+pkg
+bin
+
+state.json
+creds.yml

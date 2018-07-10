@@ -1,0 +1,6 @@
+---
+name: bosh-linuxkit-cpi
+blobstore:
+  provider: local
+  options:
+    blobstore_path: /tmp/bosh-linuxkit-cpi-blobs
