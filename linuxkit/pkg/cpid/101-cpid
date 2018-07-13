@@ -1,6 +1,0 @@
-#!/bin/sh
-# /etc/init.d/cpid: Run the bosh-linuxkit-cpid server
-#
-# written by Anthony Emengo
-
-/usr/bin/cpid /etc/cpid/config.yml &

@@ -7,6 +7,10 @@
 dev_releases
 pkg
 bin
+linuxkit/out-*
 
 state.json
 creds.yml
+hyperkit
+
+src/github.com/onsi

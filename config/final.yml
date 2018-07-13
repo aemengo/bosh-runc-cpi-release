@@ -1,6 +1,6 @@
 ---
-name: bosh-linuxkit-cpi
+name: bosh-runc-cpi
 blobstore:
   provider: local
   options:
-    blobstore_path: /tmp/bosh-linuxkit-cpi-blobs
+    blobstore_path: /tmp/bosh-runc-cpi-blobs

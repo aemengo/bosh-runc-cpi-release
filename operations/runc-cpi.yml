@@ -1,0 +1,82 @@
+---
+- type: replace
+  path: /resource_pools/name=vms/stemcell?
+  value:
+    url: https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent?v=3586.25
+    sha1: b9a44806dc1bb99b0d11d7413742f3619139da0b
+
+- type: replace
+  path: /releases/-
+  value:
+    name: bosh-runc-cpi
+    url: file:///Users/aemengo/workspace/bosh-runc-cpi-release/cpi.tgz
+
+- type: replace
+  path: /instance_groups/name=bosh/jobs/-
+  value: &cpi_job
+    name: runc-cpi
+    release: bosh-runc-cpi
+
+- type: replace
+  path: /instance_groups/name=bosh/properties/director/cpi_job?
+  value: runc-cpi
+
+- type: replace
+  path: /cloud_provider/template?
+  value:
+    name: runc-cpi
+    release: bosh-runc-cpi
+
+- type: replace
+  path: /networks/name=default/subnets/0/dns?
+  value: [192.168.64.1]
+
+- type: replace
+  path: /cloud_provider/mbus?
+  value: https://mbus:((mbus_bootstrap_password))@((static_ip)):6868
+
+- type: replace
+  path: /cloud_provider/properties/linuxkit_cpi?
+  value:
+    network_type: tcp
+    address: ((static_ip)):9999
+    agent:
+      mbus: "https://mbus:((mbus_bootstrap_password))@0.0.0.0:6868"
+      blobstore:
+        provider: local
+        options:
+          blobstore_path: /var/vcap/micro_bosh/data/cache
+
+- type: replace
+  path: /instance_groups/name=bosh/properties/linuxkit_cpi?
+  value:
+    network_type: tcp
+    address: ((static_ip)):9999
+    agent:
+      mbus: nats://nats:((nats_password))@((internal_ip)):4222
+      blobstore:
+        provider: dav
+        options:
+          endpoint: http://((internal_ip)):25250
+          user: agent
+          password: ((blobstore_agent_password))
+
+- type: replace
+  path: /variables/name=mbus_bootstrap_ssl/options/alternative_names/-
+  value:
+    ((static_ip))
+
+- type: replace
+  path: /variables/name=director_ssl/options/alternative_names/-
+  value:
+    ((static_ip))
+
+- type: replace
+  path: /variables/name=nats_server_tls/options/alternative_names/-
+  value:
+    ((static_ip))
+
+- type: replace
+  path: /variables/name=blobstore_server_tls/options/alternative_names/-
+  value:
+    ((static_ip))

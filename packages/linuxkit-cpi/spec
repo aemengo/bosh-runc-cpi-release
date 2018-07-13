@@ -1,9 +1,0 @@
----
-name: linuxkit-cpi
-
-dependencies:
-- golang-1.10-linux
-- golang-1.10-darwin
-
-files:
-- "github.com/aemengo/bosh-containerd-cpi/**/*.go"

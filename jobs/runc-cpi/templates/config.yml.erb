@@ -1,0 +1,14 @@
+<%=
+{
+  "network_type" => p('runc_cpi.network_type'),
+  "address" =>  p('runc_cpi.address'),
+  "agent" => {
+    "mbus" => p('runc_cpi.agent.mbus'),
+    "ntp" => p('runc_cpi.agent.ntp'),
+    "blobstore" => {
+      "provider" => p('runc_cpi.agent.blobstore.provider'),
+      "options" => p('runc_cpi.agent.blobstore.options')
+    }
+  }
+}.to_yaml
+%>

@@ -1,9 +1,15 @@
 set -e -x
 
 if [[ `uname` == "Darwin" ]]; then
-  pkg_dir=${BOSH_PACKAGES_DIR}/golang-1.10-darwin
+  os=darwin
 else
-  pkg_dir=${BOSH_PACKAGES_DIR}/golang-1.10-linux
+  os=linux
+fi
+
+if [ -z "$BOSH_PACKAGES_DIR" ]; then
+	pkg_dir=$(readlink -nf /var/vcap/packages/golang-1.10-${os})
+else
+	pkg_dir=$BOSH_PACKAGES_DIR/golang-1.10-${os}
 fi
 
 source ${pkg_dir}/bosh/compile.env
@@ -17,4 +23,4 @@ cp -a . ${BOSH_INSTALL_TARGET}/src/.
 
 go build \
   -o ${BOSH_INSTALL_TARGET}/bin/cpi \
-  github.com/aemengo/bosh-containerd-cpi/cmd/cpi
+  github.com/aemengo/bosh-runc-cpi/cmd/cpi

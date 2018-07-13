@@ -1,0 +1,35 @@
+---
+name: runc-cpi
+
+templates:
+  cpi.erb: bin/cpi
+  config.yml.erb: config/config.yml
+
+packages:
+- runc-cpi
+
+properties:
+  runc_cpi.network_type:
+    description: "Connection mode (tcp|unix)"
+    default: "tcp"
+
+  runc_cpi.address:
+    description: "Connection address"
+    example: "(unix) /tmp/cpid.sock, (tcp) 127.0.0.1:9999"
+    default: "192.168.64.3:9999"
+
+  runc_cpi.agent.mbus:
+    description: "Mbus URL used by deployed BOSH agents"
+    example: "nats://nats:nats-password@10.254.50.4:4222"
+
+  runc_cpi.agent.ntp:
+    description: "NTP configuration used by deployed BOSH agents"
+    default: []
+
+  runc_cpi.agent.blobstore.provider:
+    description: "Provider type for the blobstore used by deployed BOSH agents (e.g. dav, s3)"
+    default: "dav"
+
+  runc_cpi.agent.blobstore.options:
+    description: "Options for the blobstore used by deployed BOSH agents"
+    default: {}

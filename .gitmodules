@@ -1,0 +1,3 @@
+[submodule "src/github.com/aemengo/bosh-runc-cpi"]
+	path = src/github.com/aemengo/bosh-runc-cpi
+	url = https://github.com/aemengo/bosh-runc-cpi.git
