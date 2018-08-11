@@ -9,7 +9,7 @@
   path: /releases/-
   value:
     name: bosh-runc-cpi
-    url: file:///Users/aemengo/workspace/bosh-runc-cpi-release/cpi.tgz
+    url: file:///tmp/cpi.tgz
 
 - type: replace
   path: /instance_groups/name=bosh/jobs/-
@@ -36,7 +36,7 @@
   value: https://mbus:((mbus_bootstrap_password))@((static_ip)):6868
 
 - type: replace
-  path: /cloud_provider/properties/linuxkit_cpi?
+  path: /cloud_provider/properties/runc_cpi?
   value:
     network_type: tcp
     address: ((static_ip)):9999
@@ -48,7 +48,7 @@
           blobstore_path: /var/vcap/micro_bosh/data/cache
 
 - type: replace
-  path: /instance_groups/name=bosh/properties/linuxkit_cpi?
+  path: /instance_groups/name=bosh/properties/runc_cpi?
   value:
     network_type: tcp
     address: ((static_ip)):9999

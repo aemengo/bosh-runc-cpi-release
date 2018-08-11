@@ -26,9 +26,9 @@ bosh create-env ${bosh_deployment_dir}/bosh.yml \
   -v internal_cidr=10.0.0.0/16
 
 export BOSH_ENVIRONMENT=${static_ip}
-export BOSH_CA_CERT="$(bosh int ${dir}/creds.yml --path /director_ssl/ca)"
+export BOSH_CA_CERT="$(bosh int ${temp_dir}/creds.yml --path /director_ssl/ca)"
 export BOSH_CLIENT=admin
-export BOSH_CLIENT_SECRET="$(bosh int ${dir}/creds.yml --path /admin_password)"
+export BOSH_CLIENT_SECRET="$(bosh int ${temp_dir}/creds.yml --path /admin_password)"
 
 echo "-----> `date`: Update cloud config"
 bosh -n update-cloud-config ${dir}/operations/cloud-config.yml
@@ -70,8 +70,8 @@ bosh -n -d zookeeper clean-up --all
 echo "-----> `date`: Deleting env"
 bosh delete-env ${bosh_deployment_dir}/bosh.yml \
   -o ${dir}/operations/runc-cpi.yml \
-  --state ${dir}/state.json \
-  --vars-store ${dir}/creds.yml \
+  --state ${temp_dir}/state.json \
+  --vars-store ${temp_dir}/creds.yml \
   -v director_name=director \
   -v static_ip=${static_ip} \
   -v internal_ip=10.0.0.4 \
