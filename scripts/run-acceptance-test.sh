@@ -34,8 +34,7 @@ echo "-----> `date`: Update cloud config"
 bosh -n update-cloud-config ${dir}/operations/cloud-config.yml
 
 echo "-----> `date`: Upload stemcell"
-bosh -n upload-stemcell "https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent?v3586.25" \
-  --sha1 2236969026e22a50151a287a297b35a15619d01c
+bosh -n upload-stemcell "https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent?v3586.25"
 
 echo "-----> `date`: Delete previous deployment"
 bosh -n -d zookeeper delete-deployment --force

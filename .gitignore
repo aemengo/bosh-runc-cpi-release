@@ -12,5 +12,6 @@ linuxkit/out-*
 state.json
 creds.yml
 hyperkit
+cpid
 
 src/github.com/onsi
