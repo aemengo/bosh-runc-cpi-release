@@ -16,7 +16,7 @@ properties:
   runc_cpi.address:
     description: "Connection address"
     example: "(unix) /tmp/cpid.sock, (tcp) 127.0.0.1:9999"
-    default: "192.168.64.3:9999"
+    default: "192.168.65.3:9999"
 
   runc_cpi.agent.mbus:
     description: "Mbus URL used by deployed BOSH agents"

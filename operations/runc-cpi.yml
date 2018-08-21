@@ -29,17 +29,17 @@
 
 - type: replace
   path: /networks/name=default/subnets/0/dns?
-  value: [192.168.64.1]
+  value: [192.168.65.1]
 
 - type: replace
   path: /cloud_provider/mbus?
-  value: https://mbus:((mbus_bootstrap_password))@((static_ip)):6868
+  value: https://mbus:((mbus_bootstrap_password))@((internal_ip)):6868
 
 - type: replace
   path: /cloud_provider/properties/runc_cpi?
   value:
     network_type: tcp
-    address: ((static_ip)):9999
+    address: ((external_cpid_ip)):9999
     agent:
       mbus: "https://mbus:((mbus_bootstrap_password))@0.0.0.0:6868"
       blobstore:
@@ -51,7 +51,7 @@
   path: /instance_groups/name=bosh/properties/runc_cpi?
   value:
     network_type: tcp
-    address: ((static_ip)):9999
+    address: ((internal_cpid_ip)):9999
     agent:
       mbus: nats://nats:((nats_password))@((internal_ip)):4222
       blobstore:
@@ -64,19 +64,39 @@
 - type: replace
   path: /variables/name=mbus_bootstrap_ssl/options/alternative_names/-
   value:
-    ((static_ip))
+    ((external_cpid_ip))
 
 - type: replace
   path: /variables/name=director_ssl/options/alternative_names/-
   value:
-    ((static_ip))
+    ((external_cpid_ip))
 
 - type: replace
   path: /variables/name=nats_server_tls/options/alternative_names/-
   value:
-    ((static_ip))
+    ((external_cpid_ip))
 
 - type: replace
   path: /variables/name=blobstore_server_tls/options/alternative_names/-
   value:
-    ((static_ip))
+    ((external_cpid_ip))
+
+- type: replace
+  path: /variables/name=mbus_bootstrap_ssl/options/alternative_names/-
+  value:
+    ((internal_cpid_ip))
+
+- type: replace
+  path: /variables/name=director_ssl/options/alternative_names/-
+  value:
+    ((internal_cpid_ip))
+
+- type: replace
+  path: /variables/name=nats_server_tls/options/alternative_names/-
+  value:
+    ((internal_cpid_ip))
+
+- type: replace
+  path: /variables/name=blobstore_server_tls/options/alternative_names/-
+  value:
+    ((internal_cpid_ip))

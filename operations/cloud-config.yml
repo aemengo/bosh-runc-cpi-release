@@ -15,7 +15,7 @@ networks:
   type: manual
   subnets:
   - azs: [z1, z2, z3]
-    dns: [192.168.64.1]
+    dns: [192.168.65.1]
     range: 10.0.0.0/16
     gateway: 10.0.0.1
     reserved: [10.0.0.4]
