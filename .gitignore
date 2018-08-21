@@ -15,3 +15,4 @@ hyperkit
 cpid
 
 src/github.com/onsi
+bosh-lit-efi*

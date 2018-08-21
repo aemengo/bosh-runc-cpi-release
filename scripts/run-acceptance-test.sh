@@ -6,7 +6,8 @@ dir=$(cd `dirname $0` && cd .. && pwd)
 bosh_deployment_dir=${dir}/../bosh-deployment
 temp_dir="/tmp"
 cpi_path=${temp_dir}/cpi.tgz
-static_ip="192.168.64.8"
+external_cpid_ip="127.0.0.1"
+internal_cpid_ip="192.168.65.3"
 
 rm -f ${temp_dir}/state.json
 rm -f ${temp_dir}/creds.yml
@@ -20,12 +21,13 @@ bosh create-env ${bosh_deployment_dir}/bosh.yml \
   --state ${temp_dir}/state.json \
   --vars-store ${temp_dir}/creds.yml \
   -v director_name=director \
-  -v static_ip=${static_ip} \
+  -v external_cpid_ip=${external_cpid_ip} \
+  -v internal_cpid_ip=${internal_cpid_ip} \
   -v internal_ip=10.0.0.4 \
   -v internal_gw=10.0.0.1 \
   -v internal_cidr=10.0.0.0/16
 
-export BOSH_ENVIRONMENT=${static_ip}
+export BOSH_ENVIRONMENT="10.0.0.4"
 export BOSH_CA_CERT="$(bosh int ${temp_dir}/creds.yml --path /director_ssl/ca)"
 export BOSH_CLIENT=admin
 export BOSH_CLIENT_SECRET="$(bosh int ${temp_dir}/creds.yml --path /admin_password)"
@@ -41,6 +43,8 @@ bosh -n -d zookeeper delete-deployment --force
 
 echo "-----> `date`: Deploy"
 bosh -n -d zookeeper deploy <(curl -s https://raw.githubusercontent.com/cppforlife/zookeeper-release/master/manifests/zookeeper.yml)
+
+exit 0
 
 echo "-----> `date`: Recreate all VMs"
 bosh -n -d zookeeper recreate
@@ -72,7 +76,8 @@ bosh delete-env ${bosh_deployment_dir}/bosh.yml \
   --state ${temp_dir}/state.json \
   --vars-store ${temp_dir}/creds.yml \
   -v director_name=director \
-  -v static_ip=${static_ip} \
+  -v external_cpid_ip=${external_cpid_ip} \
+  -v internal_cpid_ip=${internal_cpid_ip} \
   -v internal_ip=10.0.0.4 \
   -v internal_gw=10.0.0.1 \
   -v internal_cidr=10.0.0.0/16

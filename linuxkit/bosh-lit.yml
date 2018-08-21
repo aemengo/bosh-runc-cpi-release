@@ -1,0 +1,79 @@
+kernel:
+  image: aemengo/kernel:4.14.63
+  cmdline: "console=ttyS0 page_poison=1"
+init:
+  - linuxkit/vpnkit-expose-port:v0.6
+  - linuxkit/init:v0.6
+  - linuxkit/runc:v0.6
+  - linuxkit/containerd:v0.6
+  - linuxkit/ca-certificates:v0.6
+  - aemengo/iptables:6b099b95a2cc1812e673422a3816229a161dc4f1-dirty-amd64
+  - aemengo/tar:d3b65f4beecbdfc9fad2d86aaf928b44c618cdcb-dirty-amd64
+  - aemengo/criu:8d39d0310cb7e56c8ed8ff5e995874ec0f476a2d-dirty-amd64
+  - aemengo/runc-cpid:ae2b0d62e55cf01d751339bf8e43824c1bfe8c67-dirty-amd64
+onboot:
+  - name: format
+    image: linuxkit/format:v0.6
+  - name: mount
+    image: linuxkit/mount:v0.6
+    command: ["/usr/bin/mountie", "/var/lib"]
+  - name: dhcpcd
+    image: linuxkit/dhcpcd:v0.6
+    command: ["/sbin/dhcpcd", "--nobackground", "-f", "/dhcpcd.conf", "-1"]
+  - name: mount-vpnkit
+    image: alpine:3.8
+    binds:
+      - /var/:/host_var:rbind,rshared
+    capabilities:
+      - CAP_SYS_ADMIN
+    rootfsPropagation: shared
+    command: ["sh", "-c", "mkdir /host_var/vpnkit && mount -v -t 9p -o trans=virtio,dfltuid=1001,dfltgid=50,version=9p2000 port /host_var/vpnkit"]
+services:
+  - name: acpid
+    image: linuxkit/acpid:v0.6
+  - name: ntpd
+    image: linuxkit/openntpd:v0.6
+  - name: host-timesync-daemon
+    image: linuxkit/host-timesync-daemon:613dc55e67470ec375335a1958650c3711dc4aa6
+  - name: getty
+    image: linuxkit/getty:v0.6
+    env:
+      - INSECURE=true
+  - name: sshd
+    image: linuxkit/sshd:v0.6
+  - name: vpnkit-forwarder
+    image: linuxkit/vpnkit-forwarder:v0.6
+    binds:
+      - /var/vpnkit:/port
+    net: host
+    command: ["/vpnkit-forwarder"]
+  - name: expose-bosh-http-port
+    image: alpine:3.8
+    net: none
+    binds:
+      - /usr/bin/vpnkit-expose-port:/usr/bin/vpnkit-expose-port
+      - /var/vpnkit:/port
+    command: ["/usr/bin/vpnkit-expose-port","-i", "-no-local-ip",
+              "-host-ip","10.0.0.4",
+              "-host-port","25555",
+              "-container-ip","10.0.0.4",
+              "-container-port","25555"]
+  - name: expose-bosh-mbus-port
+    image: alpine:3.8
+    net: none
+    binds:
+      - /usr/bin/vpnkit-expose-port:/usr/bin/vpnkit-expose-port
+      - /var/vpnkit:/port
+    command: ["/usr/bin/vpnkit-expose-port","-i", "-no-local-ip",
+              "-host-ip","10.0.0.4",
+              "-host-port","6868",
+              "-container-ip","10.0.0.4",
+              "-container-port","6868"]
+files:
+  - path: root/.ssh/authorized_keys
+    source: ~/.ssh/id_rsa.pub
+    mode: "0600"
+    optional: true
+trust:
+  org:
+    - linuxkit
