@@ -1,4 +1,0 @@
-image: iptables
-org: aemengo
-network: true
-disable-content-trust: true

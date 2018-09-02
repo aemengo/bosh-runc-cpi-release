@@ -1,3 +1,6 @@
 [submodule "src/github.com/aemengo/bosh-runc-cpi"]
 	path = src/github.com/aemengo/bosh-runc-cpi
 	url = https://github.com/aemengo/bosh-runc-cpi.git
+[submodule "src/github.com/aemengo/vpnkit-manager"]
+	path = src/github.com/aemengo/vpnkit-manager
+	url = https://github.com/aemengo/vpnkit-manager.git
