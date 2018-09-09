@@ -31,3 +31,6 @@ linuxkit pkg build \
 linuxkit pkg build \
   -force \
   ${dir}/linuxkit/pkg/runc-cpid
+
+# output recently built images
+docker images | head -n 10
