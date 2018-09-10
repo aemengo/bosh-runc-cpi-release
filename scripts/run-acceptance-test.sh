@@ -59,14 +59,11 @@ bosh -n -d zookeeper restart
 echo "-----> `date`: Report any problems"
 bosh -n -d zookeeper cck --report
 
-# Skipping.. The following assertions fail because of
-# 10 second timeout
+echo "-----> `date`: Delete random VM"
+bosh -n -d zookeeper delete-vm `bosh -d zookeeper vms|sort|cut -f5|head -1`
 
-# echo "-----> `date`: Delete random VM"
-# bosh -n -d zookeeper delete-vm `bosh -d zookeeper vms|sort|cut -f5|head -1`
-#
-# echo "-----> `date`: Fix deleted VM"
-# bosh -n -d zookeeper cck --auto
+echo "-----> `date`: Fix deleted VM"
+bosh -n -d zookeeper cck --auto
 
 echo "-----> `date`: Delete deployment"
 bosh -n -d zookeeper delete-deployment
