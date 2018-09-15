@@ -16,21 +16,9 @@ echo "-----> `date`: Create dev release"
 bosh create-release --force --dir ${dir} --tarball ${cpi_path}
 
 echo "-----> `date`: Create env"
-bosh create-env ${bosh_deployment_dir}/bosh.yml \
-  -o ${dir}/operations/runc-cpi.yml \
-  --state ${temp_dir}/state.json \
-  --vars-store ${temp_dir}/creds.yml \
-  -v director_name=director \
-  -v external_cpid_ip=${external_cpid_ip} \
-  -v internal_cpid_ip=${internal_cpid_ip} \
-  -v internal_ip=10.0.0.4 \
-  -v internal_gw=10.0.0.1 \
-  -v internal_cidr=10.0.0.0/16
+${dir}/deploy-bosh.sh
 
-export BOSH_ENVIRONMENT="10.0.0.4"
-export BOSH_CA_CERT="$(bosh int ${temp_dir}/creds.yml --path /director_ssl/ca)"
-export BOSH_CLIENT=admin
-export BOSH_CLIENT_SECRET="$(bosh int ${temp_dir}/creds.yml --path /admin_password)"
+source ${dir}/env.sh
 
 echo "-----> `date`: Turn off resurrection"
 bosh update-resurrection off
@@ -39,7 +27,7 @@ echo "-----> `date`: Update cloud config"
 bosh -n update-cloud-config ${dir}/operations/cloud-config.yml
 
 echo "-----> `date`: Upload stemcell"
-bosh -n upload-stemcell "https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent?v3586.25"
+bosh -n upload-stemcell "https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent?v3586.40"
 
 echo "-----> `date`: Delete previous deployment"
 bosh -n -d zookeeper delete-deployment --force
@@ -72,15 +60,6 @@ echo "-----> `date`: Clean up disks, etc."
 bosh -n -d zookeeper clean-up --all
 
 echo "-----> `date`: Deleting env"
-bosh delete-env ${bosh_deployment_dir}/bosh.yml \
-  -o ${dir}/operations/runc-cpi.yml \
-  --state ${temp_dir}/state.json \
-  --vars-store ${temp_dir}/creds.yml \
-  -v director_name=director \
-  -v external_cpid_ip=${external_cpid_ip} \
-  -v internal_cpid_ip=${internal_cpid_ip} \
-  -v internal_ip=10.0.0.4 \
-  -v internal_gw=10.0.0.1 \
-  -v internal_cidr=10.0.0.0/16
+${dir}/destroy-bosh.sh
 
 echo "-----> `date`: Done"

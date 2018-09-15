@@ -8,23 +8,23 @@ cf_deployment_dir=${dir}/../cf-deployment
 static_ip="10.0.0.5"
 temp_dir="/tmp"
 
-export BOSH_ENVIRONMENT="10.0.0.4"
-export BOSH_CA_CERT="$(bosh int ${temp_dir}/creds.yml --path /director_ssl/ca)"
-export BOSH_CLIENT=admin
-export BOSH_CLIENT_SECRET="$(bosh int ${temp_dir}/creds.yml --path /admin_password)"
+source ${dir}/scripts/env.sh
 
-echo "-----> `date`: Update cloud config"
+stemcell_version=$(bosh int --path /stemcells/0/version ${cf_deployment_dir}/cf-deployment.yml)
+if ! bosh stemcells --json | jq -r .Tables[0].Rows[].version | grep ${stemcell_version} ; then
+  bosh -n upload-stemcell "https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent?v${stemcell_version}"
+fi
+
 bosh -n update-cloud-config ${dir}/operations/cf/cloud-config.yml \
   -v static_ip=${static_ip}
 
-echo "-----> `date`: Update runtime config"
 bosh -n update-runtime-config ${bosh_deployment_dir}/runtime-configs/dns.yml \
   --name dns \
   -v host_ip=192.168.65.1 \
   --vars-store ${temp_dir}/cf_vars.yml
 
-echo "-----> `date`: Deploy cf"
 bosh -n deploy -d cf ${cf_deployment_dir}/cf-deployment.yml \
+  -o ${cf_deployment_dir}/operations/use-compiled-releases.yml \
   -o ${cf_deployment_dir}/operations/experimental/disable-consul.yml \
   -o ${cf_deployment_dir}/operations/bosh-lite.yml \
   -o ${cf_deployment_dir}/operations/experimental/disable-consul-bosh-lite.yml \
@@ -36,5 +36,3 @@ bosh -n deploy -d cf ${cf_deployment_dir}/cf-deployment.yml \
   -v static_ip=${static_ip} \
   --vars-store ${temp_dir}/cf_vars.yml \
   --no-redact
-
-echo "-----> `date`: Done"
