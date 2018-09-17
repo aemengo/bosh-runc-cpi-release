@@ -9,6 +9,7 @@ internal_cpid_ip="192.168.65.3"
 temp_dir="/tmp"
 
 bosh create-env ${bosh_deployment_dir}/bosh.yml \
+  -o ${bosh_deployment_dir}/jumpbox-user.yml \
   -o ${dir}/operations/runc-cpi.yml \
   --state ${temp_dir}/state.json \
   --vars-store ${temp_dir}/creds.yml \
