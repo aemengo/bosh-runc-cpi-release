@@ -4,4 +4,3 @@ disk_dir: "/var/lib/cpid/disks"
 vm_dir: "/var/lib/cpid/vms"
 network_type: "tcp"
 address: "0.0.0.0:9999"
-debug: true
