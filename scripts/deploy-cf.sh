@@ -19,6 +19,7 @@ bosh -n update-cloud-config ${dir}/operations/cf/cloud-config.yml \
   -v static_ip=${static_ip}
 
 bosh -n update-runtime-config ${bosh_deployment_dir}/runtime-configs/dns.yml \
+  -o ${dir}/operations/cf/bosh-dns.yml \
   --name dns \
   -v host_ip=192.168.65.1 \
   --vars-store ${temp_dir}/cf_vars.yml
