@@ -77,6 +77,17 @@ services:
               "-host-port","6868",
               "-container-ip","10.0.0.4",
               "-container-port","6868"]
+  - name: expose-bosh-ssh-port
+    image: alpine:3.8
+    net: none
+    binds:
+      - /usr/bin/vpnkit-expose-port:/usr/bin/vpnkit-expose-port
+      - /var/vpnkit:/port
+    command: ["/usr/bin/vpnkit-expose-port","-i", "-no-local-ip",
+              "-host-ip","10.0.0.4",
+              "-host-port","22",
+              "-container-ip","10.0.0.4",
+              "-container-port","22"]
 trust:
   org:
     - linuxkit
