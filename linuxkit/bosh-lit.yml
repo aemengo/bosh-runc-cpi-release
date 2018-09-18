@@ -7,7 +7,7 @@ init:
   - linuxkit/runc:v0.6
   - linuxkit/containerd:v0.6
   - linuxkit/ca-certificates:v0.6
-  - aemengo/runc-cpid:v0.1
+  - aemengo/runc-cpid:e37a1df29987e4e8b8adfb2c810c4a7c390f50e6-amd64
 onboot:
   - name: format
     image: linuxkit/format:v0.6
@@ -46,7 +46,7 @@ services:
     net: host
     command: ["/vpnkit-forwarder"]
   - name: vpnkit-manager
-    image: aemengo/vpnkit-manager:v0.1
+    image: aemengo/vpnkit-manager:84fc0f59abc57cd5256cc0541763d78895b371ba-amd64
     net: host
     capabilities:
       - all
@@ -54,40 +54,10 @@ services:
       - /usr/bin/vpnkit-expose-port:/usr/bin/vpnkit-expose-port # userland proxy
       - /var/vpnkit:/port                                       # vpnkit control 9p mount
       - /var/run:/var/run
-    command: ["/usr/bin/vpnkit-manager"]
-  - name: expose-bosh-http-port
-    image: alpine:3.8
-    net: none
-    binds:
-      - /usr/bin/vpnkit-expose-port:/usr/bin/vpnkit-expose-port
-      - /var/vpnkit:/port
-    command: ["/usr/bin/vpnkit-expose-port","-i", "-no-local-ip",
-              "-host-ip","10.0.0.4",
-              "-host-port","25555",
-              "-container-ip","10.0.0.4",
-              "-container-port","25555"]
-  - name: expose-bosh-mbus-port
-    image: alpine:3.8
-    net: none
-    binds:
-      - /usr/bin/vpnkit-expose-port:/usr/bin/vpnkit-expose-port
-      - /var/vpnkit:/port
-    command: ["/usr/bin/vpnkit-expose-port","-i", "-no-local-ip",
-              "-host-ip","10.0.0.4",
-              "-host-port","6868",
-              "-container-ip","10.0.0.4",
-              "-container-port","6868"]
-  - name: expose-bosh-ssh-port
-    image: alpine:3.8
-    net: none
-    binds:
-      - /usr/bin/vpnkit-expose-port:/usr/bin/vpnkit-expose-port
-      - /var/vpnkit:/port
-    command: ["/usr/bin/vpnkit-expose-port","-i", "-no-local-ip",
-              "-host-ip","10.0.0.4",
-              "-host-port","22",
-              "-container-ip","10.0.0.4",
-              "-container-port","22"]
+    command: ["/usr/bin/vpnkit-manager",
+              "--expose", "10.0.0.4:25555:10.0.0.4:25555",
+              "--expose", "10.0.0.4:6868:10.0.0.4:6868",
+              "--expose", "10.0.0.4:22:10.0.0.4:22"]
 trust:
   org:
     - linuxkit
