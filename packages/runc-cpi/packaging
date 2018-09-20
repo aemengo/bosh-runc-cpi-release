@@ -14,10 +14,6 @@ fi
 
 source ${pkg_dir}/bosh/compile.env
 
-export GOROOT=$pkg_dir
-export GOPATH=$BOSH_INSTALL_TARGET
-export PATH=$PATH:${GOROOT}/bin
-
 mkdir -p ${BOSH_INSTALL_TARGET}/src
 cp -a . ${BOSH_INSTALL_TARGET}/src/.
 
