@@ -1,5 +1,5 @@
 kernel:
-  image: linuxkit/kernel:4.14.63
+  image: linuxkit/kernel:4.14.70
   cmdline: "console=ttyS0 page_poison=1"
 init:
   - linuxkit/vpnkit-expose-port:v0.6
@@ -7,6 +7,7 @@ init:
   - linuxkit/runc:v0.6
   - linuxkit/containerd:v0.6
   - linuxkit/ca-certificates:v0.6
+  - linuxkit/getty:v0.6
   - aemengo/runc-cpid:e37a1df29987e4e8b8adfb2c810c4a7c390f50e6-amd64
 onboot:
   - name: format
@@ -35,10 +36,6 @@ services:
     image: linuxkit/openntpd:v0.6
   - name: host-timesync-daemon
     image: linuxkit/host-timesync-daemon:613dc55e67470ec375335a1958650c3711dc4aa6
-  - name: getty
-    image: linuxkit/getty:v0.6
-    env:
-      - INSECURE=true
   - name: vpnkit-forwarder
     image: linuxkit/vpnkit-forwarder:v0.6
     binds:
