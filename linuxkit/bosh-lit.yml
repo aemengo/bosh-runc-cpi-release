@@ -1,6 +1,9 @@
 kernel:
   image: linuxkit/kernel:4.14.70
-  cmdline: "console=ttyS0 page_poison=1"
+  cmdline: "console=ttyS0 page_poison=1 vsyscall=emulate no_timer_check"
+  # the "vsyscall=emulate" command line argument is imperative
+  # especially for deploying Cloud Foundry. Without it, errors
+  # with networking binaries manifest as segmentation faults
 init:
   - linuxkit/vpnkit-expose-port:v0.6
   - linuxkit/init:v0.6
@@ -8,7 +11,7 @@ init:
   - linuxkit/containerd:v0.6
   - linuxkit/ca-certificates:v0.6
   - linuxkit/getty:v0.6
-  - aemengo/runc-cpid:e37a1df29987e4e8b8adfb2c810c4a7c390f50e6-amd64
+  - aemengo/runc-cpid:v0.2
 onboot:
   - name: format
     image: linuxkit/format:v0.6
@@ -43,7 +46,7 @@ services:
     net: host
     command: ["/vpnkit-forwarder"]
   - name: vpnkit-manager
-    image: aemengo/vpnkit-manager:84fc0f59abc57cd5256cc0541763d78895b371ba-amd64
+    image: aemengo/vpnkit-manager:v0.2
     net: host
     capabilities:
       - all
