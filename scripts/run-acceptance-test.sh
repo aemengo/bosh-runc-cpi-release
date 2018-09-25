@@ -16,9 +16,9 @@ echo "-----> `date`: Create dev release"
 bosh create-release --force --dir ${dir} --tarball ${cpi_path}
 
 echo "-----> `date`: Create env"
-${dir}/deploy-bosh.sh
+${dir}/scripts/deploy-bosh.sh
 
-source ${dir}/env.sh
+source ${dir}/scripts/env.sh
 
 echo "-----> `date`: Turn off resurrection"
 bosh update-resurrection off
@@ -60,6 +60,6 @@ echo "-----> `date`: Clean up disks, etc."
 bosh -n -d zookeeper clean-up --all
 
 echo "-----> `date`: Deleting env"
-${dir}/destroy-bosh.sh
+${dir}/scripts/destroy-bosh.sh
 
 echo "-----> `date`: Done"
