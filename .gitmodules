@@ -4,3 +4,6 @@
 [submodule "src/github.com/aemengo/vpnkit-manager"]
 	path = src/github.com/aemengo/vpnkit-manager
 	url = https://github.com/aemengo/vpnkit-manager.git
+[submodule "src/github.com/aemengo/blt"]
+	path = src/github.com/aemengo/blt
+	url = https://github.com/aemengo/blt.git
