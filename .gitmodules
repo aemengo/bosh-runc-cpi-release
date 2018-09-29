@@ -7,3 +7,6 @@
 [submodule "src/github.com/aemengo/blt"]
 	path = src/github.com/aemengo/blt
 	url = https://github.com/aemengo/blt.git
+[submodule "src/golang.org/x/net"]
+	path = src/golang.org/x/net
+	url = https://go.googlesource.com/net

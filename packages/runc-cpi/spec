@@ -7,3 +7,4 @@ dependencies:
 
 files:
 - "github.com/aemengo/bosh-runc-cpi/**/*.go"
+- "golang.org/x/net/**/*.go"
