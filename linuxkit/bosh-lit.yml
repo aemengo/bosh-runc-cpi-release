@@ -10,7 +10,6 @@ init:
   - linuxkit/runc:v0.6
   - linuxkit/containerd:v0.6
   - linuxkit/ca-certificates:v0.6
-  - linuxkit/getty:v0.6
   - aemengo/runc-cpid:v0.2
 onboot:
   - name: format
@@ -39,6 +38,10 @@ services:
     image: linuxkit/openntpd:v0.6
   - name: host-timesync-daemon
     image: linuxkit/host-timesync-daemon:613dc55e67470ec375335a1958650c3711dc4aa6
+  - name: getty
+    image: linuxkit/getty:v0.6
+    env:
+    - INSECURE=true
   - name: vpnkit-forwarder
     image: linuxkit/vpnkit-forwarder:v0.6
     binds:
