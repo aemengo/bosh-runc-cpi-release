@@ -12,7 +12,7 @@ source ${dir}/scripts/env.sh
 
 stemcell_version=$(bosh int --path /stemcells/0/version ${cf_deployment_dir}/cf-deployment.yml)
 if ! bosh stemcells --json | jq -r .Tables[0].Rows[].version | grep ${stemcell_version} ; then
-  bosh -n upload-stemcell "https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent?v${stemcell_version}"
+  bosh -n upload-stemcell "https://s3.amazonaws.com/bosh-core-stemcells/warden/bosh-stemcell-${stemcell_version}-warden-boshlite-ubuntu-trusty-go_agent.tgz"
 fi
 
 bosh -n update-cloud-config ${dir}/operations/cf/cloud-config.yml \
