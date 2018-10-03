@@ -1,0 +1,64 @@
+---
+- type: replace
+  path: /resource_pools/name=vms/stemcell?
+  value:
+    url: file://../stemcell.tgz
+
+- type: replace
+  path: /releases/-
+  value:
+    name: bosh-runc-cpi
+    url: file://../cpi.tgz
+
+- type: replace
+  path: /releases/-
+  value:
+    name: bosh-runc-cpi-compiled
+    url: file://../cpi-compiled.tgz
+
+- type: replace
+  path: /instance_groups/name=bosh/jobs/-
+  value:
+    name: runc-cpi
+    release: bosh-runc-cpi-compiled
+
+- type: replace
+  path: /instance_groups/name=bosh/properties/director/cpi_job?
+  value: runc-cpi
+
+- type: replace
+  path: /cloud_provider/template?
+  value:
+    name: runc-cpi
+    release: bosh-runc-cpi
+
+- type: replace
+  path: /networks/name=default/subnets/0/dns?
+  value: [192.168.65.1]
+
+- type: replace
+  path: /cloud_provider/properties/runc_cpi?
+  value:
+    network_type: tcp
+    address: ((external_cpid_ip)):9999
+    agent:
+      mbus: "https://mbus:((mbus_bootstrap_password))@0.0.0.0:6868"
+      blobstore:
+        provider: local
+        options:
+          blobstore_path: /var/vcap/micro_bosh/data/cache
+
+- type: replace
+  path: /instance_groups/name=bosh/properties/runc_cpi?
+  value:
+    network_type: tcp
+    address: ((internal_cpid_ip)):9999
+    agent:
+      mbus: nats://nats:((nats_password))@((internal_ip)):4222
+      blobstore:
+        provider: dav
+        options:
+          endpoint: http://((internal_ip)):25250
+          user: agent
+          password: ((blobstore_agent_password))
+
