@@ -2,7 +2,7 @@
 - type: replace
   path: /resource_pools/name=vms/stemcell?
   value:
-    url: https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent?v=3586.25
+    url: https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent?v=3586.43
     sha1: b9a44806dc1bb99b0d11d7413742f3619139da0b
 
 - type: replace
@@ -13,7 +13,7 @@
 
 - type: replace
   path: /instance_groups/name=bosh/jobs/-
-  value: &cpi_job
+  value:
     name: runc-cpi
     release: bosh-runc-cpi
 
@@ -30,10 +30,6 @@
 - type: replace
   path: /networks/name=default/subnets/0/dns?
   value: [192.168.65.1]
-
-- type: replace
-  path: /cloud_provider/mbus?
-  value: https://mbus:((mbus_bootstrap_password))@((internal_ip)):6868
 
 - type: replace
   path: /cloud_provider/properties/runc_cpi?
@@ -60,43 +56,3 @@
           endpoint: http://((internal_ip)):25250
           user: agent
           password: ((blobstore_agent_password))
-
-- type: replace
-  path: /variables/name=mbus_bootstrap_ssl/options/alternative_names/-
-  value:
-    ((external_cpid_ip))
-
-- type: replace
-  path: /variables/name=director_ssl/options/alternative_names/-
-  value:
-    ((external_cpid_ip))
-
-- type: replace
-  path: /variables/name=nats_server_tls/options/alternative_names/-
-  value:
-    ((external_cpid_ip))
-
-- type: replace
-  path: /variables/name=blobstore_server_tls/options/alternative_names/-
-  value:
-    ((external_cpid_ip))
-
-- type: replace
-  path: /variables/name=mbus_bootstrap_ssl/options/alternative_names/-
-  value:
-    ((internal_cpid_ip))
-
-- type: replace
-  path: /variables/name=director_ssl/options/alternative_names/-
-  value:
-    ((internal_cpid_ip))
-
-- type: replace
-  path: /variables/name=nats_server_tls/options/alternative_names/-
-  value:
-    ((internal_cpid_ip))
-
-- type: replace
-  path: /variables/name=blobstore_server_tls/options/alternative_names/-
-  value:
-    ((internal_cpid_ip))
