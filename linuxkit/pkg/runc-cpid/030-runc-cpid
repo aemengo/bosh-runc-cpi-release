@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/bin/cpid /etc/cpid/config.yml &
