@@ -1,0 +1,31 @@
+name: bosh-runc-cpi
+version: "1"
+commit_hash: 7353f58
+uncommitted_changes: false
+jobs:
+- name: runc-cpi
+  version: 64e46d2f32123b7793ab34748f6da3ddcb9c865b
+  fingerprint: 64e46d2f32123b7793ab34748f6da3ddcb9c865b
+  sha1: a5f9433076b16c934f66c8f9df67fd930dec0337
+packages:
+- name: golang-1.10-darwin
+  version: 407d3297552513acf1078b8b121d25244158fd4c
+  fingerprint: 407d3297552513acf1078b8b121d25244158fd4c
+  sha1: 868e3e7882cdc223e3c31d8d5fe995293e59fd62
+  dependencies: []
+- name: golang-1.10-linux
+  version: 81eb736caa18470925321b1222e07315f1bc860c
+  fingerprint: 81eb736caa18470925321b1222e07315f1bc860c
+  sha1: d5619a1d2df5efbce5eda7fc342f19f6f2f32a0e
+  dependencies: []
+- name: runc-cpi
+  version: ae64c2a583d52fe5947cb43d5c99ed0ddd698a2e
+  fingerprint: ae64c2a583d52fe5947cb43d5c99ed0ddd698a2e
+  sha1: a8d0c0c4ccd1e5f2d6b6d1b79ca5547af4e756fd
+  dependencies:
+  - golang-1.10-linux
+  - golang-1.10-darwin
+license:
+  version: 72682618b7d51fac94ca70015f700923992d1764
+  fingerprint: 72682618b7d51fac94ca70015f700923992d1764
+  sha1: f6856da7f281ecef2dd1a189bfcd6fa2df96e446
