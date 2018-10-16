@@ -8,6 +8,7 @@ cf_deployment_dir=${dir}/../cf-deployment
 static_ip="10.0.0.5"
 temp_dir="/tmp"
 
+# eval "$(blt env)"
 source ${dir}/scripts/env.sh
 
 stemcell_version=$(bosh int --path /stemcells/0/version ${cf_deployment_dir}/cf-deployment.yml)
@@ -35,5 +36,4 @@ bosh -n deploy -d cf ${cf_deployment_dir}/cf-deployment.yml \
   -v uaa_admin_client_secret=admin-client-secret \
   -v system_domain=dev.cfdev.sh \
   -v static_ip=${static_ip} \
-  --vars-store ${temp_dir}/cf_vars.yml \
-  --no-redact
+  --vars-store ${temp_dir}/cf_vars.yml
