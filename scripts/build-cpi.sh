@@ -35,7 +35,7 @@ GOOS=darwin go build \
 bosh add-blob --dir=${dir} ${dir}/runc-cpi-darwin runc-cpi-darwin
 bosh add-blob --dir=${dir} ${dir}/runc-cpi-linux runc-cpi-linux
 
-bosh create-release --dir=${dir} --name=bosh-runc-cpi --version=${version} --tarball=${dir}/bosh-runc-cpi-v${version}.tgz --final
+bosh create-release --dir=${dir} --name=bosh-runc-cpi --version=${version} --tarball=${dir}/bosh-runc-cpi-v${version}.tgz --final --force
 sha=$(shasum -a 1 ${dir}/bosh-runc-cpi-v${version}.tgz | awk '{print $1}')
 
 ## Assume that a gcp environment is being used
