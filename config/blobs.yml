@@ -1,1 +1,6 @@
---- {}
+runc-cpi-darwin:
+  size: 12584668
+  sha: 59e9c3f3ce6812bd1bb5ab62eb535666cb375af4
+runc-cpi-linux:
+  size: 12642441
+  sha: 42c2465712a1a2932316f67f9779c3cc55443883

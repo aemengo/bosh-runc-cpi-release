@@ -1,10 +1,6 @@
 ---
 name: runc-cpi
 
-dependencies:
-- golang-1.10-linux
-- golang-1.10-darwin
-
 files:
-- "github.com/aemengo/bosh-runc-cpi/**/*.go"
-- "golang.org/x/net/**/*.go"
+- runc-cpi-linux
+- runc-cpi-darwin

@@ -16,3 +16,6 @@ cpid
 
 src/github.com/onsi
 bosh-lit-efi*
+
+runc-cpi-*
+compilation-workspace.yml
