@@ -1,6 +1,0 @@
-# for some reason, bosh-dns always fails when called in pre-start
-# like cf-deployments invoke, unless it is run as root
----
-- type: replace
-  path: /addons/name=bosh-dns/jobs/name=bosh-dns/properties/experimental_run_as_root?
-  value: true
