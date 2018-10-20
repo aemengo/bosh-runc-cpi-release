@@ -98,7 +98,7 @@ bosh upload-release --sha1 ${sha_compiled} \\
   os: "ubuntu-trusty"
   version: "${stemcell_version}"
 
-bosh upload-stemcell --sha1 <STEMCELL_SHASUM> \
+bosh upload-stemcell --sha1 <STEMCELL_SHASUM> \\
   https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent?v=${stemcell_version}
 \`\`\`
 EOF
