@@ -66,7 +66,7 @@ EOF
 
 bosh -n -d compilation-workspace deploy ${dir}/compilation-workspace.yml
 bosh -n -d compilation-workspace export-release bosh-runc-cpi-compiled/${version} ubuntu-trusty/${stemcell_version}
-compiled_release=$(ls ${dir}/bosh-runc-cpi-compiled-*-ubuntu-trusty-*.tgz)
+compiled_release=$(basename ${dir}/bosh-runc-cpi-compiled-*-ubuntu-trusty-*.tgz)
 sha_compiled=$(shasum -a 1 ${compiled_release} | awk '{print $1}')
 
 cat <<EOF

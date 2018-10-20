@@ -18,7 +18,7 @@
   value:
     name: "bosh-runc-cpi-compiled"
     version: "2"
-    url: "https://github.com/aemengo/bosh-runc-cpi-release/releases/download/v2//Users/aemengo/workspace/bosh-runc-cpi-release/bosh-runc-cpi-compiled-2-ubuntu-trusty-3586.48-20181016-091933-385385.tgz"
+    url: "https://github.com/aemengo/bosh-runc-cpi-release/releases/download/v2/bosh-runc-cpi-compiled-2-ubuntu-trusty-3586.48-20181016-091933-385385.tgz"
     sha1: "9e4efbb64fee06b31c0e3ca35f7c3596c3ef909b"
 
 - type: replace
