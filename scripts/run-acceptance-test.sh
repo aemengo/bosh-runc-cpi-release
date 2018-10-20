@@ -3,11 +3,8 @@
 set -e
 
 dir=$(cd `dirname $0` && cd .. && pwd)
-bosh_deployment_dir=${dir}/../bosh-deployment
 temp_dir="/tmp"
 cpi_path=${temp_dir}/cpi.tgz
-external_cpid_ip="127.0.0.1"
-internal_cpid_ip="192.168.65.3"
 
 rm -f ${temp_dir}/state.json
 rm -f ${temp_dir}/creds.yml
