@@ -1,10 +1,12 @@
 azs:
 - name: z1
-- name: z2
-- name: z3
 
-vm_types:
-- name: default
+compilation:
+  az: z1
+  network: default
+  reuse_compilation_vms: true
+  vm_type: default
+  workers: 6
 
 disk_types:
 - name: default
@@ -14,15 +16,11 @@ networks:
 - name: default
   type: manual
   subnets:
-  - azs: [z1, z2, z3]
+  - azs: [z1]
     dns: [192.168.65.1]
     range: 10.0.0.0/16
     gateway: 10.0.0.1
     reserved: [10.0.0.4]
 
-compilation:
-  workers: 5
-  az: z1
-  reuse_compilation_vms: true
-  vm_type: default
-  network: default
+vm_types:
+- name: default
