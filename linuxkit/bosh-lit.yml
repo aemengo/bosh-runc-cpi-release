@@ -63,4 +63,5 @@ services:
               "--expose", "10.0.0.4:22:10.0.0.4:22"]
 trust:
   org:
+    - library
     - linuxkit
