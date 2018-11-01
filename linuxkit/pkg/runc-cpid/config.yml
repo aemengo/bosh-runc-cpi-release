@@ -2,3 +2,4 @@
 work_dir: "/var/lib/cpid"
 network_type: "tcp"
 address: "0.0.0.0:9999"
+cidr: "10.0.0.0/16"

@@ -25,10 +25,12 @@ echo ${sha} > ${dir}/linuxkit/pkg/runc-cpid/sha
 
 # build container images
 linuxkit pkg build \
+  -disable-cache \
   -force \
   ${dir}/linuxkit/pkg/vpnkit-manager
 
 linuxkit pkg build \
+  -disable-cache \
   -force \
   ${dir}/linuxkit/pkg/runc-cpid
 

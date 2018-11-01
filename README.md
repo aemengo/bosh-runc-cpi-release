@@ -47,7 +47,7 @@ Initializing bosh-runc-cpid...
 
 ### config.yml
 
-As of right now, the `./config.yml` file only supports three properties. Here's an example configuration file:
+As of right now, the `./config.yml` file only supports these properties. Here's an example configuration file:
 
 ```bash
 $ cat config.yml
@@ -55,10 +55,12 @@ $ cat config.yml
 work_dir: "/var/lib/cpid"
 network_type: "tcp"
 address: "0.0.0.0:9999"
+cidr: "10.0.0.0/16"
 ```
 - `work_dir:` The location where all bosh state (stemcells, disks, containers) will be kept. If the directory does not exist, it will be created. A directory with high disk space and that can sustain heavy writes is preferred.
 - `network_type:` Either `unix` or `tcp`. The protocol type that the daemon will listen as. Since this server must be accessed by both the [director](https://bosh.io/docs/bosh-components/#director) and your bootstrap environment, `tcp` is more flexible and thus supported. `unix` support might be removed in the future.
 - `address:` The listen address for the server. With `tcp` it is the form of `<IP>:<PORT>` and with `unix` it is the location of the unix socket. Parent directories will be created if they do not exist. `unix` support might be removed in the future.
+- `cidr:` The CIDR block to be used for containers IPs. A network bridge and gateway will automatically be created from this value. The gateway IP will automatically be assigned at x.x.x.1/xx. 
 
 ## CPI
 
@@ -89,11 +91,11 @@ $ bosh create-env ../bosh-deployment/bosh.yml \
 - `external_cpid_ip:` Network address of the runc-daemon server used **at bootstrap**. The port of `9999` and network_type of `tcp` is assumed but these can be changed in the ops-file.
 - `internal_cpid_ip:` Network address of the runc-daemon server used **by the director** container. The port of `9999` and network_type of `tcp` is assumed but these can be changed in the ops-file.
 - `internal_nameserver:` This is the nameserver address that will be configured with every container. When running inside of VM, you may opt to choose the nameserver of the VM itself, otherwise `8.8.8.8` is perfectly valid.
-- `internal_ip:` The IP that the bosh director container will be assigned. Your value must fall within the cidr of `10.0.0.0/16` since the runc-daemon server is currently *hardcoded* to use the aforementioned range.
-- `internal_gw:` The gateway that will be used by containers in a bridge network. You must specify `10.0.0.1` for this value, since the runc-daemon server is currently *hardcoded* to use the aforementioned value.
-- `internal_cidr:` The IP range that container will be assigned. You must specify `10.0.0.0/16` for this value, since the runc-daemon server is currently *hardcoded* to use the aforementioned value.
+- `internal_ip:` The IP that the bosh director container will be assigned. Your value must fall within the `cidr` that was configured with runc-daemon.
+- `internal_gw:` The gateway that will be used by containers in a bridge network. You must specify the `x.x.x.1` value of the `cidr` that was configured with runc-daemon, since the runc-daemon server has *pre-configured* a gateway at that IP.
+- `internal_cidr:` The IP range that container will be assigned. You must specify the value for `cidr` that was configured with your runc-daemon.
 
-Due to the current IP restrictions of the runc-daemon, you may opt to use the cloud-config.yml found in this repository at [./operations/cloud-config.yml](./operations/cloud-config.yml) for reference.
+You may opt to use the cloud-config.yml found in this repository at [./operations/cloud-config.yml](./operations/cloud-config.yml) for reference, choosing to adjust the network IPs for your specific configuration.
 
 **Note:** As of right now, only bosh-deployment [v1.1.0](https://github.com/cloudfoundry/bosh-deployment/tree/v1.1.0) is supported.
 
