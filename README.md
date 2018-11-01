@@ -13,7 +13,7 @@ Much like the warden-cpi interacts with a garden server, the **runc-cpi** intera
 ### Prerequisites
 
 - [Golang](https://golang.org): 1.10+
-- [RunC](https://github.com/opencontainers/runc): v1.0.0-rc5
+- [RunC](https://github.com/opencontainers/runc): v1.0.0-rc5+
 - Tar
 
 ### Building
