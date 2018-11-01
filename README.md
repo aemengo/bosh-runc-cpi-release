@@ -78,7 +78,7 @@ $ bosh create-env ../bosh-deployment/bosh.yml \
     -v director_name=director \
     -v external_cpid_ip=127.0.0.1 \
     -v internal_cpid_ip=192.168.65.3 \
-    -v internal_cpid_gw=192.168.65.1 \
+    -v internal_nameserver=192.168.65.1 \
     -v internal_ip=10.0.0.4 \
     -v internal_gw=10.0.0.1 \
     -v internal_cidr=10.0.0.0/16
@@ -88,7 +88,7 @@ $ bosh create-env ../bosh-deployment/bosh.yml \
 - `director_name:` Name for your bosh director
 - `external_cpid_ip:` Network address of the runc-daemon server used **at bootstrap**. The port of `9999` and network_type of `tcp` is assumed but these can be changed in the ops-file.
 - `internal_cpid_ip:` Network address of the runc-daemon server used **by the director** container. The port of `9999` and network_type of `tcp` is assumed but these can be changed in the ops-file.
-- `internal_cpid_gw:` A badly named variable. This is the dns resolver address that will be configured with every container. When running inside of VM, you may opt to choose the dns server of the VM itself, otherwise `8.8.8.8` is perfectly valid.
+- `internal_nameserver:` This is the nameserver address that will be configured with every container. When running inside of VM, you may opt to choose the nameserver of the VM itself, otherwise `8.8.8.8` is perfectly valid.
 - `internal_ip:` The IP that the bosh director container will be assigned. Your value must fall within the cidr of `10.0.0.0/16` since the runc-daemon server is currently *hardcoded* to use the aforementioned range.
 - `internal_gw:` The gateway that will be used by containers in a bridge network. You must specify `10.0.0.1` for this value, since the runc-daemon server is currently *hardcoded* to use the aforementioned value.
 - `internal_cidr:` The IP range that container will be assigned. You must specify `10.0.0.0/16` for this value, since the runc-daemon server is currently *hardcoded* to use the aforementioned value.
