@@ -11,12 +11,6 @@
     url: file://../cpi.tgz
 
 - type: replace
-  path: /releases/-
-  value:
-    name: bosh-runc-cpi-compiled
-    url: file://../cpi-compiled.tgz
-
-- type: replace
   path: /cloud_provider/template?
   value:
     name: runc-cpi
@@ -26,7 +20,7 @@
   path: /instance_groups/name=bosh/jobs/-
   value:
     name: runc-cpi
-    release: bosh-runc-cpi-compiled
+    release: bosh-runc-cpi
 
 - type: replace
   path: /instance_groups/name=bosh/properties/director/cpi_job?
