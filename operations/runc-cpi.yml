@@ -2,24 +2,16 @@
 - type: replace
   path: /resource_pools/name=vms/stemcell?
   value:
-    url: https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent?v=3586.48
-    sha1: 4bd559a277c4c359b3fa357868332ce9f30cee2c
+    url: https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent?v=3586.63
+    sha1: d6c349fef10e33c714616994c4e842bc01578e7a
 
 - type: replace
   path: /releases/-
   value:
     name: "bosh-runc-cpi"
-    version: "2"
-    url: "https://github.com/aemengo/bosh-runc-cpi-release/releases/download/v2/bosh-runc-cpi-v2.tgz"
-    sha1: "d91c0289063a9709fc859ff3f1c5ef4cc9304295"
-
-- type: replace
-  path: /releases/-
-  value:
-    name: "bosh-runc-cpi-compiled"
-    version: "2"
-    url: "https://github.com/aemengo/bosh-runc-cpi-release/releases/download/v2/bosh-runc-cpi-compiled-2-ubuntu-trusty-3586.48-20181016-091933-385385.tgz"
-    sha1: "9e4efbb64fee06b31c0e3ca35f7c3596c3ef909b"
+    version: "3"
+    url: "https://github.com/aemengo/bosh-runc-cpi-release/releases/download/v3/bosh-runc-cpi-v3.tgz"
+    sha1: "b78a957213033a8e07b0a6111d45acb702576eee"
 
 - type: replace
   path: /cloud_provider/template?
@@ -31,7 +23,7 @@
   path: /instance_groups/name=bosh/jobs/-
   value:
     name: runc-cpi
-    release: bosh-runc-cpi-compiled
+    release: bosh-runc-cpi
 
 - type: replace
   path: /instance_groups/name=bosh/properties/director/cpi_job?

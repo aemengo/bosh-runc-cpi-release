@@ -4,13 +4,9 @@ set -e
 
 dir=$(cd `dirname $0` && cd .. && pwd)
 temp_dir="/tmp"
-cpi_path=${temp_dir}/cpi.tgz
 
 rm -f ${temp_dir}/state.json
 rm -f ${temp_dir}/creds.yml
-
-echo "-----> `date`: Create dev release"
-bosh create-release --force --dir ${dir} --tarball ${cpi_path}
 
 echo "-----> `date`: Create env"
 ${dir}/scripts/deploy-bosh.sh

@@ -10,7 +10,7 @@ init:
   - linuxkit/runc:v0.6
   - linuxkit/containerd:v0.6
   - linuxkit/ca-certificates:v0.6
-  - aemengo/runc-cpid:v0.5
+  - aemengo/runc-cpid:v0.6
 onboot:
   - name: format
     image: linuxkit/format:v0.6
@@ -49,7 +49,7 @@ services:
     net: host
     command: ["/vpnkit-forwarder"]
   - name: vpnkit-manager
-    image: aemengo/vpnkit-manager:v0.5
+    image: aemengo/vpnkit-manager:v0.6
     net: host
     capabilities:
       - all

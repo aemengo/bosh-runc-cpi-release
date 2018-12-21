@@ -25,7 +25,6 @@ bosh -n update-runtime-config ${bosh_deployment_dir}/runtime-configs/dns.yml \
   --vars-store ${temp_dir}/cf_vars.yml
 
 bosh -n deploy -d cf ${cf_deployment_dir}/cf-deployment.yml \
-  -o ${cf_deployment_dir}/operations/use-compiled-releases.yml \
   -o ${cf_deployment_dir}/operations/experimental/disable-consul.yml \
   -o ${cf_deployment_dir}/operations/bosh-lite.yml \
   -o ${cf_deployment_dir}/operations/experimental/disable-consul-bosh-lite.yml \
