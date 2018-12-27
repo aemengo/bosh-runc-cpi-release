@@ -1,0 +1,19 @@
+name: bosh-runc-cpi
+version: "4"
+commit_hash: 875e192
+uncommitted_changes: false
+jobs:
+- name: runc_cpi
+  version: cf8d4a243aa3302f09e403e66572e75557fccd59
+  fingerprint: cf8d4a243aa3302f09e403e66572e75557fccd59
+  sha1: c5da69d1db34a0b9ec81610943a06cda3802d02c
+packages:
+- name: runc-cpi
+  version: 14cee2d6256a9def3f8ce1cb00dabc6484aca9cb
+  fingerprint: 14cee2d6256a9def3f8ce1cb00dabc6484aca9cb
+  sha1: 81bd9a3d957c0d1f1daf0b76c5eb4d6b6e391da3
+  dependencies: []
+license:
+  version: 72682618b7d51fac94ca70015f700923992d1764
+  fingerprint: 72682618b7d51fac94ca70015f700923992d1764
+  sha1: 2580724b56fa9112c4309544f762f7f52fe817dc
