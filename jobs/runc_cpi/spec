@@ -1,5 +1,5 @@
 ---
-name: runc-cpi
+name: runc_cpi
 
 templates:
   cpi.erb: bin/cpi

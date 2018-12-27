@@ -4,4 +4,4 @@ PACKAGES_DIR=${BOSH_PACKAGES_DIR:-/var/vcap/packages}
 JOBS_DIR=${BOSH_JOBS_DIR:-/var/vcap/jobs}
 OS=$(uname | tr '[:upper:]' '[:lower:]')
 
-${PACKAGES_DIR}/runc-cpi/bin/runc-cpi-${OS} ${JOBS_DIR}/runc-cpi/config/config.yml
+${PACKAGES_DIR}/runc-cpi/bin/runc-cpi-${OS} ${JOBS_DIR}/runc_cpi/config/config.yml

@@ -13,18 +13,18 @@
 - type: replace
   path: /cloud_provider/template?
   value:
-    name: runc-cpi
+    name: runc_cpi
     release: bosh-runc-cpi
 
 - type: replace
   path: /instance_groups/name=bosh/jobs/-
   value:
-    name: runc-cpi
+    name: runc_cpi
     release: bosh-runc-cpi
 
 - type: replace
   path: /instance_groups/name=bosh/properties/director/cpi_job?
-  value: runc-cpi
+  value: runc_cpi
 
 - type: replace
   path: /networks/name=default/subnets/0/dns?
