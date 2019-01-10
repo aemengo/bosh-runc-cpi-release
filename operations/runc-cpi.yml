@@ -10,7 +10,7 @@
   value:
     name: "bosh-runc-cpi"
     version: "4"
-    url: "https://github.com/aemengo/bosh-runc-cpi-release/releases/download/v3/bosh-runc-cpi-v4.tgz"
+    url: "https://github.com/aemengo/bosh-runc-cpi-release/releases/download/v4/bosh-runc-cpi-v4.tgz"
     sha1: "737d4848fbf2195881d6c699d39a78ac5bb8c46b"
 
 - type: replace
